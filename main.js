@@ -379,4 +379,17 @@ Trello.prototype.getCardWithExtraParams = function(cardId, extraParams, callback
     return makeRequest(rest.get, this.uri + '/1/cards/' + cardId, {query: query}, callback);
 };
 
+/*
+See: https://developers.trello.com/reference/#boardsboardidactions
+*/
+Trello.prototype.getBoardActions = function (boardId, fields, filter, extraParams, callback) {
+    let query = this.createQuery();
+    query.fields = "id";
+    query.action_fields = fields;
+    query.actions = filter;
+    Object.assign(query, extraParams);
+
+    return makeRequest(rest.get, this.uri + '/1/boards/' + boardId + '/', {query: query}, callback);
+};
+
 module.exports = Trello;
