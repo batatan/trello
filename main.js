@@ -392,4 +392,13 @@ Trello.prototype.getBoardActions = function (boardId, fields, filter, extraParam
     return makeRequest(rest.get, this.uri + '/1/boards/' + boardId + '/', {query: query}, callback);
 };
 
+/*
+See https://developers.trello.com/reference/#boardsidcustomfields
+*/
+Trello.prototype.getBoardCustomFields = function (boardId, callback) {
+    return makeRequest(rest.get, this.uri + '/1/boards/' + boardId + '/customFields', {query: this.createQuery()}, callback);
+};
+
+
+
 module.exports = Trello;
