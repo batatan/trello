@@ -392,13 +392,20 @@ Trello.prototype.getBoardActions = function (boardId, fields, filter, extraParam
     return makeRequest(rest.get, this.uri + '/1/boards/' + boardId + '/', {query: query}, callback);
 };
 
-/*
-See https://developers.trello.com/reference/#boardsidcustomfields
-*/
+// See https://developers.trello.com/reference/#boardsidcustomfields
 Trello.prototype.getBoardCustomFields = function (boardId, callback) {
     return makeRequest(rest.get, this.uri + '/1/boards/' + boardId + '/customFields', {query: this.createQuery()}, callback);
 };
 
+// See: https://developers.trello.com/reference/#customfielditemsid
+// And this: https://community.atlassian.com/t5/Trello-questions/How-do-I-set-the-value-of-a-Trello-card-s-custom-field-using-the/qaq-p/757887#M4762
+Trello.prototype.updateCardCustomField = function(idCard, idCustomField, value, callback) {
+    return makeRequest(rest.put, `${this.uri}/1/card/${idCard}/customField/${idCustomField}/item`, {query: this.createQuery(), data: value}, callback);
+};
 
+// See: https://developers.trello.com/reference/#customfieldsidoptions-1
+Trello.prototype.getCustomFieldOptions = function (idCustomField, callback) {
+    return makeRequest(rest.get, `${this.uri}/1/customField/${idCustomField}/options`, {query: this.createQuery()}, callback);
+};
 
 module.exports = Trello;
